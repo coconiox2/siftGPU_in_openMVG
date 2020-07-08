@@ -1,14 +1,14 @@
 #include "main.h"
-//#include "imageListing.hpp"
+#include "imageListing.hpp"
 #include "computeFeaturesSiftGPU.hpp"
 //#include "computeFeatures.hpp"
 
 int main(int argc, char** argv)
 {
-	////计算内参等
-	//imageListing::ImageListing sImageListing;
+	//计算内参等
+	imageListing::ImageListing sImageListing;
 	//sImageListing.checkFileAndPathValidity();
-	//sImageListing.imageListing();
+	sImageListing.imageListing();
 	
 	//siftGPU特征点检测
 	computeFeaturesSiftGPU::ComputeFeaturesSiftGPU sComputeFeatures;

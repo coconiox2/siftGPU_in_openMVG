@@ -154,7 +154,6 @@
   <ItemGroup>
     <ClInclude Include="computeFeatures.hpp" />
     <ClInclude Include="computeFeaturesSiftGPU.hpp" />
-    <ClInclude Include="computeMatches.hpp" />
     <ClInclude Include="imageListing.hpp" />
     <ClInclude Include="main.h" />
   </ItemGroup>

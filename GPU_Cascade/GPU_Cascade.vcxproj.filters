@@ -32,8 +32,5 @@
     <ClInclude Include="computeFeatures.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="computeMatches.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
