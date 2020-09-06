@@ -1,26 +1,41 @@
+#include <omp.h>
 #include "main.h"
 #include "imageListing.hpp"
 #include "computeFeaturesSiftGPU.hpp"
-//#include "computeFeatures.hpp"
 
+#include "openMVG/system/timer.hpp"
+//#include "computeFeatures.hpp"
+using namespace imageListing;
 int main(int argc, char** argv)
 {
+	
 	//计算内参等
 	imageListing::ImageListing sImageListing;
 	//sImageListing.checkFileAndPathValidity();
-	sImageListing.imageListing();
+	//sImageListing.imageListing();
 	
+	openMVG::system::Timer allTimeCost;
 	//siftGPU特征点检测
 	computeFeaturesSiftGPU::ComputeFeaturesSiftGPU sComputeFeatures;
 	//sComputeFeatures.checkFileAndPathValidity();
 	sComputeFeatures.computeFeatures();
+	
+	std::cout << "group_count(s): " << group_count << std::endl;
+	std::cout << "block_count_per_group(s): " << block_count_per_group << std::endl;
+	std::cout << "image_count_per_block(s): " << image_count_per_block << std::endl;
+	std::cout << "All images count:(group_count*block_count_per_group*image_count_per_block)(s): " << group_count*block_count_per_group*image_count_per_block << std::endl;
 
+	std::cout << "Tasks (imageListing and computing features with siftGPU for all images) cost(s): " << allTimeCost.elapsed() << "s" << std::endl;
 	////openMVG特征点检测
 	//ComputeFeatures sComputeFeatures;
 	//sComputeFeatures.checkFileAndPathValidity();
 	//sComputeFeatures.computeFeatures();
 
-	//getchar();
+	getchar();
+	getchar();
+	getchar();
+	getchar();
+
 	return 0;
 	////声明SiftGPU并初始化  
 	//////////////////////////////////////////////////////
