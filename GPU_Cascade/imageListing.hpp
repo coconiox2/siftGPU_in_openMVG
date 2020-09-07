@@ -38,12 +38,12 @@ namespace imageListing {
 	const int block_count_per_group = 4;
 	const int image_count_per_block = 4;
 
-	const std::string sImageInputDirFather = stlplus::folder_up(imageInputDir, 4) +
+	const std::string sImageInputDirFather = stlplus::folder_up(imageInputDir, 5) +
 		"/imageData/tianjin/";
-	const std::string sfileDatabaseDir = stlplus::folder_up(imageInputDir, 4) +
-		"/openmvg_master/openmvg_master/src/openMVG/exif/sensor_width_database/";
+	const std::string sfileDatabaseDir = stlplus::folder_up(imageInputDir, 5) +
+		"/openmvg_master/src/openMVG/exif/sensor_width_database/";
 	const std::string sfileDatabase = sfileDatabaseDir + "sensor_width_camera_database.txt";
-	const std::string sImageListingOutputDirFather = stlplus::folder_up(imageInputDir, 4) +
+	const std::string sImageListingOutputDirFather = stlplus::folder_up(imageInputDir, 5) +
 		"/imageData/tianjin/";
 
 	class ImageListing {

@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 	//计算内参等
 	imageListing::ImageListing sImageListing;
 	//sImageListing.checkFileAndPathValidity();
-	//sImageListing.imageListing();
+	sImageListing.imageListing();
 	
 	openMVG::system::Timer allTimeCost;
 	//siftGPU特征点检测

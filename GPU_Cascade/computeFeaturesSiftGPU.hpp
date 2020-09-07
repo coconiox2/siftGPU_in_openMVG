@@ -72,7 +72,7 @@ namespace computeFeaturesSiftGPU {
 	const int block_count_per_group = 4;
 	const int image_count_per_block = 4;
 
-	const std::string sComputeFeaturesOutputDirFather = stlplus::folder_up(imageInputDir, 4) +
+	const std::string sComputeFeaturesOutputDirFather = stlplus::folder_up(imageInputDir, 5) +
 		"/imageData/tianjin/";
 
 	class ComputeFeaturesSiftGPU
