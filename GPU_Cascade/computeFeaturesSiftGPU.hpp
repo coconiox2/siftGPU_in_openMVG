@@ -70,10 +70,17 @@ using namespace std;
 namespace computeFeaturesSiftGPU {
 	const int group_count = 4;
 	const int block_count_per_group = 4;
-	const int image_count_per_block = 4;
+	const int image_count_per_block = 1;
 
 	const std::string sComputeFeaturesOutputDirFather = stlplus::folder_up(imageInputDir, 5) +
 		"/imageData/tianjin/";
+
+	bool cmp(float &a, float &b)
+	{
+		if (a>b)
+			return true;
+		return false;
+	}
 
 	class ComputeFeaturesSiftGPU
 	{
@@ -346,7 +353,7 @@ namespace computeFeaturesSiftGPU {
 						omp_set_num_threads(nb_max_thread);
 					}
 
-#pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
+//#pragma omp parallel for schedule(dynamic) if (iNumThreads > 0) private(imageGray)
 #endif
 
 					for (int i = 0; i < static_cast<int>(sfm_data.views.size()); ++i)
@@ -455,7 +462,33 @@ namespace computeFeaturesSiftGPU {
 									_keys[j].s, static_cast<float>(_keys[j].o));
 								regions->Features().push_back(fp);
 							}
+							
+							/*const float &temp0 = regions->Features()[100].scale();
+							const float &temp1 = regions->Features()[200].scale();
+							bool bo = temp0 > temp1;
+							int s = 0;*/
 
+							std::vector<float> vecScale;
+							//size_t fea_length = regions->Features().size();
+							//vecScale.reserve(fea_length);
+							//vecScale.resize(fea_length);
+							for (int i = 0; i < regions->Features().size(); i++)
+							{
+								const float &temp1 = regions->Features()[i].scale();
+								float temp2 = temp1;
+								vecScale.emplace_back(temp2);
+							}
+							//partial_sort(v.begin(),v.begin()+4,v.end(),cmp);  
+							std::partial_sort(vecScale.begin(), vecScale.begin() + 100, vecScale.end(), cmp);
+
+							/*vector<double>::iterator ite1 = find(vec_dis.begin(), vec_dis.end(), vec_dis1[0]);
+							vector<double>::iterator ite2 = find(vec_dis.begin(), vec_dis.end(), vec_dis1[1]);
+							vector<double>::iterator ite3 = find(vec_dis.begin(), vec_dis.end(), vec_dis1[2]);
+							auto index1 = std::distance(std::begin(vec_dis), ite1);
+							auto index2 = std::distance(std::begin(vec_dis), ite2);
+							auto index3 = std::distance(std::begin(vec_dis), ite3);*/
+
+							
 							//siftGPU descriptors -> openMVG::descriptors
 							vector<vector<unsigned char>> _des;
 							for (int sj = 0; sj < _num; ++sj) {

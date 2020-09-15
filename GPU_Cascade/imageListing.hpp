@@ -36,7 +36,7 @@ using namespace openMVG::sfm;
 namespace imageListing {
 	const int group_count = 4;
 	const int block_count_per_group = 4;
-	const int image_count_per_block = 4;
+	const int image_count_per_block = 1;
 
 	const std::string sImageInputDirFather = stlplus::folder_up(imageInputDir, 5) +
 		"/imageData/tianjin/";
