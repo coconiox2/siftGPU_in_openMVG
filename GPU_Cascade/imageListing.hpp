@@ -38,13 +38,7 @@ namespace imageListing {
 	const int block_count_per_group = 4;
 	const int image_count_per_block = 1;
 
-	const std::string sImageInputDirFather = stlplus::folder_up(imageInputDir, 5) +
-		"/imageData/tianjin/";
-	const std::string sfileDatabaseDir = stlplus::folder_up(imageInputDir, 5) +
-		"/openmvg_master/src/openMVG/exif/sensor_width_database/";
-	const std::string sfileDatabase = sfileDatabaseDir + "sensor_width_camera_database.txt";
-	const std::string sImageListingOutputDirFather = stlplus::folder_up(imageInputDir, 5) +
-		"/imageData/tianjin/";
+	
 
 	class ImageListing {
 	public:
@@ -174,10 +168,10 @@ namespace imageListing {
 		// Create the description of an input image dataset for OpenMVG toolsuite
 		// - Export a SfM_Data file with View & Intrinsic data
 		//
-		int imageListing()
+		int imageListing(std::string sImageInputDirFather, std::string sfileDatabaseDir, std::string sImageListingOutputDirFather)
 		{
 
-
+			const std::string sfileDatabase = sfileDatabaseDir + "/sensor_width_camera_database.txt";
 			std::string sKmatrix;
 
 			std::string sPriorWeights;
@@ -195,8 +189,8 @@ namespace imageListing {
 				char temp_i[2] = { ' ','\0' };
 				temp_i[0] = i + 48;
 				const std::string str_i = temp_i;
-				const std::string sImageInputDir = sImageInputDirFather + "DJI_" + str_i + "/";
-				const std::string sImageListingOutputDir = sImageListingOutputDirFather + "DJI_" + str_i + "_build/";
+				const std::string sImageInputDir = sImageInputDirFather + "/DJI_" + str_i + "/";
+				const std::string sImageListingOutputDir = sImageListingOutputDirFather + "/DJI_" + str_i + "_build/";
 
 				//imageListing for every groups and every blocks
 				{

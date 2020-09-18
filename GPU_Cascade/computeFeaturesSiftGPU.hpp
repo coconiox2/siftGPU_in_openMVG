@@ -72,8 +72,7 @@ namespace computeFeaturesSiftGPU {
 	const int block_count_per_group = 4;
 	const int image_count_per_block = 1;
 
-	const std::string sComputeFeaturesOutputDirFather = stlplus::folder_up(imageInputDir, 5) +
-		"/imageData/tianjin/";
+	
 
 	bool cmp(float &a, float &b)
 	{
@@ -128,9 +127,9 @@ namespace computeFeaturesSiftGPU {
 		}
 		/// - Compute view image description (feature & descriptor extraction)
 		/// - Export computed data
-		int computeFeatures()
+		int computeFeatures(std::string sImageListingOutputDirFather)
 		{
-			CmdLine cmd;
+			const std::string sComputeFeaturesOutputDirFather = sImageListingOutputDirFather;
 
 			std::string sSfM_Data_Filename;
 			std::string sOutDir = "";
@@ -204,7 +203,7 @@ namespace computeFeaturesSiftGPU {
 				char temp_i[2] = { ' ','\0' };
 				temp_i[0] = i + 48;
 				const std::string str_i = temp_i;
-				sOutDir = sComputeFeaturesOutputDirFather + "DJI_" + str_i + "_build/";
+				sOutDir = sComputeFeaturesOutputDirFather + "/DJI_" + str_i + "_build/";
 				sSfM_Data_Filename = sOutDir + "sfm_data.json";
 				
 				if (sOutDir.empty()) {
@@ -479,7 +478,7 @@ namespace computeFeaturesSiftGPU {
 								vecScale.emplace_back(temp2);
 							}
 							//partial_sort(v.begin(),v.begin()+4,v.end(),cmp);  
-							std::partial_sort(vecScale.begin(), vecScale.begin() + 100, vecScale.end(), cmp);
+							//////////std::partial_sort(vecScale.begin(), vecScale.begin() + 100, vecScale.end(), cmp);
 
 							/*vector<double>::iterator ite1 = find(vec_dis.begin(), vec_dis.end(), vec_dis1[0]);
 							vector<double>::iterator ite2 = find(vec_dis.begin(), vec_dis.end(), vec_dis1[1]);

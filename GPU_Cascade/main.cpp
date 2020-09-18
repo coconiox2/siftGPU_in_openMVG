@@ -1,4 +1,5 @@
 #include <omp.h>
+#include "third_party/cmdLine/cmdLine.h"
 #include "main.h"
 #include "imageListing.hpp"
 #include "computeFeaturesSiftGPU.hpp"
@@ -8,17 +9,39 @@
 using namespace imageListing;
 int main(int argc, char** argv)
 {
-	
+
+	//Defines the path and name of the read and output files
+	std::string sImageInputDirFather;
+	std::string sfileDatabaseDir;
+	std::string sImageListingOutputDirFather;
+
+	CmdLine cmd;
+	cmd.add(make_option('i', sImageInputDirFather, "input_jpg"));
+	cmd.add(make_option('d', sfileDatabaseDir, "input_sfmData"));
+	cmd.add(make_option('o', sImageListingOutputDirFather, "out_dir"));
+
+	try {
+		if (argc == 1) throw std::string("Invalid command line parameter.");
+		cmd.process(argc, argv);
+	}
+	catch (const std::string& s) {
+		std::cerr << "Usage: " << argv[0] << '\n'
+			<< std::endl;
+
+		std::cerr << s << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	//计算内参等
 	imageListing::ImageListing sImageListing;
 	//sImageListing.checkFileAndPathValidity();
-	sImageListing.imageListing();
+	sImageListing.imageListing(sImageInputDirFather, sfileDatabaseDir, sImageListingOutputDirFather);
 	
 	openMVG::system::Timer allTimeCost;
 	//siftGPU特征点检测
 	computeFeaturesSiftGPU::ComputeFeaturesSiftGPU sComputeFeatures;
 	//sComputeFeatures.checkFileAndPathValidity();
-	sComputeFeatures.computeFeatures();
+	sComputeFeatures.computeFeatures(sImageListingOutputDirFather);
 	
 	std::cout << "group_count(s): " << group_count << std::endl;
 	std::cout << "block_count_per_group(s): " << block_count_per_group << std::endl;
